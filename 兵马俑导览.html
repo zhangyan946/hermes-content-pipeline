@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秦始皇兵马俑 · 旅游导览</title>
+<style>
+  :root {
+    --bg: #1a1a1f;
+    --bg-card: #22222a;
+    --bg-section: #252530;
+    --text: #d4d4d8;
+    --text-muted: #909098;
+    --accent: #c9a84c;
+    --accent-dim: #8b7330;
+    --border: #333340;
+    --hl-bg: #2a2a20;
+    --tag-bg: #2a2818;
+    --tag-text: #c9a84c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", "Songti SC", Georgia, serif;
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0d0d12 0%, #1a1410 40%, #0d0d12 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.65;
+    filter: saturate(0.6) brightness(0.7);
+  }
+
+  .hero-overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(transparent, rgba(13,13,18,0.95) 60%);
+    width: 100%;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  .hero .badge-row {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 5px 16px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 3px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(4px);
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Section ── */
+  section {
+    margin: 64px 0;
+    padding: 40px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  section h2 {
+    font-size: 1.8rem;
+    color: #e8e4d8;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .deco-line {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin: 12px 0 28px;
+    border-radius: 2px;
+  }
+
+  section p {
+    margin-bottom: 1.2em;
+    color: #c8c8d0;
+  }
+
+  /* ── Highlight ── */
+  .hl {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ── Figure ── */
+  figure {
+    margin: 32px 0;
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  figcaption {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  .media-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+    margin: 32px 0;
+  }
+
+  .media-row figure {
+    margin: 0;
+  }
+
+  .media-row .text-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .media-row .text-col p {
+    margin-bottom: 0.8em;
+  }
+
+  /* ── Info Table ── */
+  .info-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 24px 0;
+    font-size: 0.95rem;
+  }
+
+  .info-table dt {
+    background: #1e1e26;
+    padding: 12px 20px;
+    color: var(--accent);
+    font-weight: 600;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  .info-table dd {
+    background: #1e1e26;
+    padding: 12px 20px;
+    color: var(--text);
+  }
+
+  /* ── Fun Facts ── */
+  .fact-card {
+    background: var(--bg-section);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .fact-card .fact-num {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  .fact-card p {
+    margin-bottom: 0;
+  }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 24px 0;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--border));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid var(--bg-card);
+  }
+
+  .timeline-year {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .timeline-item p {
+    color: #c8c8d0;
+    margin: 0;
+  }
+
+  /* ── Tips ── */
+  .tip-box {
+    background: var(--hl-bg);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .tip-box h4 {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  .tip-box p, .tip-box li {
+    font-size: 0.93rem;
+    color: #c8c8d0;
+    margin-bottom: 6px;
+  }
+
+  .tip-box ul {
+    padding-left: 20px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  footer a {
+    color: var(--accent-dim);
+    text-decoration: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    section { padding: 24px 18px; margin: 36px 0; }
+    .media-row { grid-template-columns: 1fr; gap: 16px; }
+    .info-table { grid-template-columns: 1fr; }
+    .hero { height: 50vh; min-height: 360px; }
+    .hero-overlay { padding: 40px 20px; }
+    .hero h1 { font-size: 2rem; }
+    section h2 { font-size: 1.4rem; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <img class="hero-img" src="images/bmy/pit1.jpg" alt="兵马俑一号坑全景"
+       onerror="this.style.display='none'">
+  <div class="hero-overlay">
+    <h1>秦始皇兵马俑</h1>
+    <p class="subtitle">T E R R A C O T T A  ·  W A R R I O R S</p>
+    <div class="badge-row">
+      <span class="badge">🏛 世界文化遗产</span>
+      <span class="badge">✨ 世界第八大奇迹</span>
+      <span class="badge">🇨🇳 第一批全国重点文保</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════ 一、概览 ═══════════════ -->
+<section>
+  <div class="section-num">第一章</div>
+  <h2>概览：地下军团的惊世重现</h2>
+  <div class="deco-line"></div>
+  <p>
+    秦始皇兵马俑，简称<span class="hl">秦兵马俑</span>或<span class="hl">秦俑</span>，
+    位于陕西省西安市临潼区，距秦始皇陵<span class="hl">以东1.5千米</span>，
+    是<span class="hl">秦始皇帝陵博物院</span>的核心组成部分。
+  </p>
+  <p>
+    这是一支深埋地下<span class="hl">2200多年</span>的陶制军队——
+    超过<span class="hl">8000个真人大小的武士俑</span>、数百匹陶马和上百辆战车，
+    以严整军阵再现了秦统一六国的磅礴气势。被誉为
+    <span class="hl">"世界第八大奇迹"</span>和<span class="hl">"世界十大古墓稀世珍宝之一"</span>。
+  </p>
+  <p>
+    先后有<span class="hl">200多位外国元首和政府首脑</span>专程前来参观，
+    兵马俑已成为中国古代辉煌文明的一张<span class="hl">金字名片</span>。
+  </p>
+
+  <dl class="info-table">
+    <dt>📍 位置</dt><dd>陕西省西安市临潼区</dd>
+    <dt>🕰 年代</dt><dd>秦代（约公元前246—前208年）</dd>
+    <dt>📅 发现</dt><dd>1974年3月</dd>
+    <dt>🏛 文保级别</dt><dd>全国重点文物保护单位（1961）</dd>
+    <dt>🌍 世界遗产</dt><dd>1987年列入《世界遗产名录》</dd>
+    <dt>🏷 别名</dt><dd>秦兵马俑、秦俑、Terracotta Warriors</dd>
+  </dl>
+</section>
+
+<!-- ═══════════════ 二、历史背景 ═══════════════ -->
+<section>
+  <div class="section-num">第二章</div>
+  <h2>历史背景：千古一帝的死后世界</h2>
+  <div class="deco-line"></div>
+
+  <p>
+    要理解兵马俑，得先认识它们的"主人"——
+    <span class="hl">秦始皇嬴政</span>（公元前259年—前210年）。
+    他是中国历史上<span class="hl">第一位皇帝</span>，也是统一六国、建立中央集权制度的关键人物。
+  </p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">公元前 259 年</div>
+      <p>嬴政出生于赵国都城邯郸（今河北邯郸），父亲秦庄襄王当时在赵国做人质。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">公元前 247 年</div>
+      <p>13岁继承秦王之位，由相邦吕不韦和太后赵姬辅政。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">公元前 238 年</div>
+      <p>平定嫪毐叛乱，铲除吕不韦，22岁开始亲政。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">公元前 230—221 年</div>
+      <p>先后灭韩、赵、魏、楚、燕、齐六国，<span class="hl">完成统一大业</span>。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">公元前 221 年</div>
+      <p>自称"始皇帝"，建立中央集权：设三公九卿，废分封，行郡县；<span class="hl">统一文字、货币、度量衡、车轨</span>。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">约公元前 246 年起</div>
+      <p>秦始皇陵开始修建，动用<span class="hl">70余万人</span>，历时<span class="hl">39年</span>。兵马俑是陵墓的陪葬坑。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">公元前 210 年</div>
+      <p>嬴政在巡游途中驾崩于沙丘（今河北邢台），终年50岁，葬于骊山秦始皇陵。</p>
+    </div>
+  </div>
+
+  <p>
+    秦始皇为何要建造如此庞大的陶俑军团？按古人的观念，<span class="hl">死后世界与生前世界一样</span>，
+    皇帝在阴间同样需要军队保护。兵马俑就是秦始皇"死后帝国"的禁卫军——
+    就像他用武力统一天下一样，这支地下军队将继续护卫他在另一个世界的统治。
+  </p>
+
+  <figure>
+    <img src="images/bmy/general-figure.jpg" alt="将军俑特写"
+         onerror="this.style.display='none'">
+    <figcaption>▲ 高级军吏俑（将军俑）—— 秦军指挥官的生动写照</figcaption>
+  </figure>
+</section>
+
+<!-- ═══════════════ 三、遗址考古 ═══════════════ -->
+<section>
+  <div class="section-num">第三章</div>
+  <h2>遗址考古：三大陪葬坑的发现之旅</h2>
+  <div class="deco-line"></div>
+
+  <p>
+    兵马俑坑位于秦始皇陵<span class="hl">东侧1.5千米</span>处，三坑呈<span class="hl">"品"字形</span>排列，
+    均为<span class="hl">地下坑道式土木结构</span>建筑：先挖深约5米的大坑，中间筑土隔墙，
+    墙上架棚木、铺苇席、覆黄土，底部用青砖墁铺，陶俑放入后封堵门道——形成一座封闭的"地下宫殿"，
+    坑内空间高度约<span class="hl">3.2米</span>。
+  </p>
+
+  <div class="media-row">
+    <figure>
+      <img src="images/bmy/pit1.jpg" alt="兵马俑一号坑"
+           onerror="this.style.display='none'">
+      <figcaption>▲ 一号坑全景</figcaption>
+    </figure>
+    <div class="text-col">
+      <h3 style="color:var(--accent);margin-bottom:10px;font-size:1.15rem;">一号坑 —— 主力军阵</h3>
+      <p>
+        最早发现、规模最大：东西长<span class="hl">230米</span>，宽62米，面积<span class="hl">14,260平方米</span>。
+        坑内约有<span class="hl">8000余个兵马俑</span>，以步兵和战车组成庞大的长方形军阵，
+        前锋、侧翼、后卫层次分明，再现了秦军"强弓劲弩在前，长矛大戟居中，战车铁骑殿后"的经典战术布局。
+      </p>
+      <p>
+        1974年3月，临潼县农民打井时偶然发现——这个"意外"震惊了全世界。
+      </p>
+    </div>
+  </div>
+
+  <div class="media-row">
+    <div class="text-col">
+      <h3 style="color:var(--accent);margin-bottom:10px;font-size:1.15rem;">二号坑 —— 多兵种协同</h3>
+      <p>
+        位于一号坑东北侧，东西长124米，宽98米，面积约<span class="hl">6,000平方米</span>。
+        布阵更为复杂，包含<span class="hl">骑兵、弩兵、战车、步兵</span>四个相对独立的作战单元，
+        是研究秦代多兵种联合作战的珍贵实例。著名的<span class="hl">跪射俑</span>和<span class="hl">立射俑</span>就出土于此。
+      </p>
+      <p>
+        2025年，二号坑第9过洞东段新发掘出土战车两乘、车马器15件、兵器9件，考古工作仍在进行。
+      </p>
+    </div>
+    <figure>
+      <img src="images/bmy/kneeling-archer.jpg" alt="跪射俑"
+           onerror="this.style.display='none'">
+      <figcaption>▲ 跪射俑 —— 二号坑出土的经典之作</figcaption>
+    </figure>
+  </div>
+
+  <div class="media-row">
+    <figure>
+      <img src="images/bmy/cavalry.jpg" alt="骑兵俑与鞍马"
+           onerror="this.style.display='none'">
+      <figcaption>▲ 骑兵俑与陶鞍马 —— 二号坑出土</figcaption>
+    </figure>
+    <div class="text-col">
+      <h3 style="color:var(--accent);margin-bottom:10px;font-size:1.15rem;">三号坑 & 四号坑</h3>
+      <p>
+        <span class="hl">三号坑</span>面积最小，仅<span class="hl">520平方米</span>。
+        出土武士俑68件，呈警卫队列排列，考古学家推测这里是整个军阵的<span class="hl">指挥部（军幕）</span>。
+      </p>
+      <p>
+        <span class="hl">四号坑</span>是一个未建成的空坑，说明秦始皇陵工程可能因秦末农民起义而被迫中止——就像一座永远停留在蓝图上的建筑。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 四、出土文物 ═══════════════ -->
+<section>
+  <div class="section-num">第四章</div>
+  <h2>出土文物：青铜之冠与千人千面</h2>
+  <div class="deco-line"></div>
+
+  <p>
+    兵马俑坑出土文物数量惊人：<span class="hl">武士俑约7000件</span>、木质战车100余辆、陶马100多匹，
+    以及大量<span class="hl">青铜兵器</span>。陶俑身高一般在<span class="hl">1.8米</span>左右，最高的将军俑可达<span class="hl">1.96米</span>。
+  </p>
+
+  <figure>
+    <img src="images/bmy/bronze-sword.jpg" alt="秦青铜长剑"
+         onerror="this.style.display='none'">
+    <figcaption>▲ 兵马俑坑出土的青铜长剑 —— 八棱剑身，历经2200年仍锋利如新</figcaption>
+  </figure>
+
+  <p>
+    最令人惊叹的出土文物之一是<span class="hl">秦铜车马</span>。1978年出土于秦陵封土西侧，
+    共两乘，一为"立车"（开道车），一为"安车"（坐乘车），按真人车马<span class="hl">1/2比例</span>用青铜铸造。
+    出土时破碎成3000多片，经过近8年精心修复，1989年正式展出。
+  </p>
+  <p>
+    铜车马由<span class="hl">3500余个零部件</span>组成，使用金银饰件超14千克，
+    采用了铸造、镶嵌、焊接、子母扣连接、活铰连接等多种工艺。它被誉为
+    <span class="hl">"青铜之冠"</span>——是中国考古史上出土的体型最大、结构最复杂、系驾关系最完整的古代车马。
+  </p>
+
+  <figure>
+    <img src="images/bmy/bronze-chariot.jpg" alt="秦铜车马"
+         onerror="this.style.display='none'">
+    <figcaption>▲ 秦铜车马 —— "青铜之冠"，1/2比例青铜铸造</figcaption>
+  </figure>
+
+  <div class="fact-card">
+    <div class="fact-num">🔍 文物冷知识</div>
+    <p>
+      兵马俑坑中出土的<span class="hl">青铜剑</span>，剑身有8个棱面，误差不超过
+      <span class="hl">0.2毫米</span>。更神奇的是，剑表面有一层<span class="hl">10微米厚的铬盐氧化层</span>——
+      这种防锈技术直到20世纪才被德国和美国"重新发明"并申请专利。
+      也就是说，秦朝工匠掌握的冶金技术，领先了西方<span class="hl">约2000年</span>。
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ 五、制作工艺 ═══════════════ -->
+<section>
+  <div class="section-num">第五章</div>
+  <h2>制作工艺：千人千面的奇迹</h2>
+  <div class="deco-line"></div>
+
+  <p>
+    兵马俑的制造堪称<span class="hl">古代工业化的奇迹</span>。陶俑采用<span class="hl">分段模制、拼接组装</span>的工艺：
+    身体各部分（头、躯干、四肢、手）分别用模具制作，然后拼接成整体，
+    再用<span class="hl">雕刻手法刻画面部细节</span>——这就解释了为什么8000多个兵马俑<span class="hl">没有两个完全相同的面容</span>，
+    真正做到"千人千面"。
+  </p>
+
+  <figure>
+    <img src="images/bmy/color-restoration.jpg" alt="兵马俑彩绘复原"
+         onerror="this.style.display='none'">
+    <figcaption>▲ 兵马俑彩绘复原想象图 —— 刚出土时，它们曾色彩斑斓</figcaption>
+  </figure>
+
+  <p>
+    很多人以为兵马俑本来就是土黄色的，其实它们刚制成时<span class="hl">色彩极其鲜艳</span>：
+    面部肉色、黑眉红唇，铠甲深褐，战袍朱红、粉绿、天蓝、紫色交织。
+    可惜在潮湿的地下埋藏2200年后，出土时颜料接触空气<span class="hl">迅速氧化剥落</span>，
+    短短几分钟内就从五彩斑斓变成我们今天看到的土黄色——就像一张彩色照片在阳光下瞬间褪色。
+  </p>
+
+  <p>
+    陶俑的制作者身份也很有趣。考古人员在陶俑身上发现了<span class="hl">100多枚指纹印痕</span>，
+    经分析发现，这些工匠中既有<span class="hl">官署作坊的成年工匠</span>，也有<span class="hl">民间作坊的匠人</span>，
+    甚至还有<span class="hl">未成年人</span>参与其中。每一枚指纹都像跨越2000年的"签名"，连接着我们与这些无名工匠。
+  </p>
+
+  <div class="fact-card">
+    <div class="fact-num">🔍 值得一看</div>
+    <p>
+      去看兵马俑时注意找<span class="hl">"绿脸俑"</span>——1999年在二号坑出土的一尊跪射俑，面部涂有石绿颜料，
+      不同于其他陶俑的肉色面庞。这是目前发现的唯一一尊绿脸俑，至今原因成谜，学者推测可能与祭祀仪式或军中巫术有关。
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ 六、趣闻与冷知识 ═══════════════ -->
+<section>
+  <div class="section-num">第六章</div>
+  <h2>趣闻与冷知识：让你的导游小伙伴对你刮目相看</h2>
+  <div class="deco-line"></div>
+
+  <div class="fact-card">
+    <div class="fact-num">💡 冷知识 #1</div>
+    <p>
+      兵马俑<b>并非秦始皇首创</b>。商周时期就有"人殉"制度——活人陪葬。
+      春秋战国时逐渐用陶俑、木俑代替活人，这叫<span class="hl">"以俑代人"</span>。
+      秦始皇只是把规模做到了极致。某种程度上，兵马俑的出现反而推动了文明的进步——
+      至少不用真人士兵去陪葬了。
+    </p>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-num">💡 冷知识 #2</div>
+    <p>
+      兵马俑的发现纯属<span class="hl">"打井意外"</span>。1974年陕西大旱，临潼县西杨村几个农民
+      在村南打井抗旱，井口不偏不倚正好开在了一号坑的东南角。下挖时先是挖出陶俑碎片，
+      后来干脆挖出了完整的陶俑头部——这个"巧合"改写了世界考古史。
+    </p>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-num">💡 冷知识 #3</div>
+    <p>
+      兵马俑手里原本都<span class="hl">握有真实的青铜兵器</span>——剑、矛、戟、弩机等。
+      但秦末项羽攻入关中后，据说<span class="hl">劫走了俑坑中的兵器并烧毁了部分坑道</span>。
+      今天我们看到坑内许多陶俑空空如也的双手，就是这样来的。一号坑甬道中也发现了人为挖开的痕迹。
+    </p>
+  </div>
+
+  <div class="fact-card">
+    <div class="fact-num">💡 冷知识 #4</div>
+    <p>
+      秦始皇陵的封土堆至今<span class="hl">尚未正式发掘</span>。据《史记》记载，
+      地宫中"以水银为百川江河大海"，现代汞含量检测确实发现陵区土壤汞异常偏高，
+      证实了文献的可信度。出于文物保护技术限制，国家目前的政策是"暂不发掘"——
+      也许你一生都看不到秦始皇陵打开的场面，但这反而增加了它的神秘感。
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ 七、参观指南 ═══════════════ -->
+<section>
+  <div class="section-num">第七章</div>
+  <h2>参观指南：实用出行信息</h2>
+  <div class="deco-line"></div>
+
+  <dl class="info-table">
+    <dt>🎫 门票价格</dt><dd><span class="hl">120元</span> / 人</dd>
+    <dt>🕘 开放时间（旺季）</dt><dd>3月16日—11月15日：<span class="hl">08:30 — 17:00</span></dd>
+    <dt>🕘 开放时间（淡季）</dt><dd>11月16日—3月15日：<span class="hl">08:30 — 16:30</span></dd>
+    <dt>⏱ 建议游览时长</dt><dd><span class="hl">3小时</span>以上（三坑一厅）</dd>
+    <dt>🌤 适宜季节</dt><dd>四季皆宜</dd>
+    <dt>📞 所属单位</dt><dd>秦始皇帝陵博物院</dd>
+  </dl>
+
+  <div class="media-row">
+    <div class="text-col">
+      <h3 style="color:var(--accent);margin-bottom:10px;font-size:1.15rem;">🚇 交通方式</h3>
+      <p>
+        <span class="hl">地铁</span>：西安地铁9号线直达"秦陵西"站，出站后换乘免费摆渡车。
+      </p>
+      <p>
+        <span class="hl">公交</span>：从西安火车站东广场乘坐游5（306路）直达兵马俑，票价约7元。
+      </p>
+      <p>
+        <span class="hl">自驾</span>：连霍高速"临潼"出口下，沿秦唐大道行驶约15分钟。
+      </p>
+    </div>
+    <div class="text-col">
+      <div class="tip-box">
+        <h4>📋 参观小贴士</h4>
+        <ul>
+          <li>建议购买<span class="hl">语音导览器</span>或请导游讲解，否则容易"走马观花"</li>
+          <li>参观顺序推荐：<span class="hl">一号坑 → 三号坑 → 二号坑 → 铜车马展厅</span></li>
+          <li>旺季人流量极大，建议<span class="hl">早上开门就进</span>，避开10:00-14:00高峰</li>
+          <li>馆内禁止使用闪光灯拍照（保护文物颜料）</li>
+          <li>秦始皇陵（丽山园）凭兵马俑门票<span class="hl">免费参观</span>，有免费摆渡车往返</li>
+          <li>附近还有<span class="hl">华清池</span>（约8公里），可以安排一日游</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  <p>资料来源：<a href="https://baike.baidu.com/item/秦始皇兵马俑" target="_blank">百度百科·兵马俑</a> ·
+  <a href="https://baike.baidu.com/item/秦始皇/6164" target="_blank">百度百科·秦始皇</a></p>
+  <p style="margin-top:8px;">
+    文物实物照片由即梦AI生成 · 仅供导览参考 · 请以实地参观为准
+  </p>
+</footer>
+
+</body>
+</html>
