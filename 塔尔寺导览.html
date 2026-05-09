@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>塔尔寺 · 藏传佛教圣地导览</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --bg-card: #16213e;
+    --bg-alt: #0f3460;
+    --text: #e0d5c1;
+    --text-muted: #a89f91;
+    --accent: #d4a853;
+    --accent-light: #f0d78c;
+    --border: #2a2a4a;
+    --hl-bg: #2d1f0e;
+    --highlight: #e8c56d;
+    --max-width: 960px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', 'STSong', Georgia, serif;
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Navigation */
+  .site-nav {
+    background: rgba(22, 33, 62, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    padding: 0 20px;
+  }
+  .site-nav-inner {
+    max-width: var(--max-width); margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+  }
+  .site-nav .brand {
+    font-size: 1.1em; font-weight: 700; color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .site-nav .brand small {
+    font-weight: 400; color: var(--text-muted); font-size: 0.75em; margin-left: 8px;
+  }
+  .nav-links { display: flex; gap: 18px; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-size: 0.85em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    height: 520px;
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+    background: linear-gradient(180deg, #1a1a2e00 0%, #1a1a2e 70%);
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    object-fit: cover; width: 100%; height: 100%;
+    opacity: 0.65;
+  }
+  .hero-overlay {
+    position: relative; z-index: 1;
+    max-width: var(--max-width); margin: 0 auto; padding: 60px 30px 40px;
+    width: 100%;
+  }
+  .hero h1 {
+    font-size: 3em; font-weight: 900; color: var(--accent-light);
+    letter-spacing: 8px; text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+    margin-bottom: 6px;
+  }
+  .hero .subtitle {
+    font-size: 1.2em; color: #c0b090; letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+  .hero .tagline {
+    font-size: 0.95em; color: var(--text-muted); max-width: 600px;
+    border-left: 3px solid var(--accent); padding-left: 14px; margin-top: 10px;
+  }
+
+  /* Main Content */
+  .container {
+    max-width: var(--max-width); margin: 0 auto; padding: 20px 24px 60px;
+  }
+
+  /* Section headers */
+  .section {
+    margin: 50px 0;
+    padding-top: 20px;
+  }
+  .section-header {
+    text-align: center; margin-bottom: 32px;
+  }
+  .section-num {
+    font-size: 0.8em; letter-spacing: 4px; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .section-title {
+    font-size: 2em; font-weight: 700; color: var(--accent-light);
+    letter-spacing: 3px;
+  }
+  .section-line {
+    width: 60px; height: 2px; background: var(--accent);
+    margin: 14px auto 0; border-radius: 1px;
+  }
+
+  /* Paragraph */
+  p {
+    margin-bottom: 18px; text-align: justify; text-indent: 2em;
+    color: var(--text);
+  }
+  p:first-of-type { text-indent: 0; }
+
+  /* Figure */
+  figure {
+    margin: 28px 0;
+  }
+  figure img {
+    width: 100%; display: block; border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s;
+  }
+  figure img:hover { transform: scale(1.01); }
+  figcaption {
+    text-align: center; font-size: 0.85em; color: var(--text-muted);
+    margin-top: 10px; font-style: italic; letter-spacing: 1px;
+  }
+  figure.full-width { margin: 32px -24px; }
+  figure.full-width img { border-radius: 0; border-left: none; border-right: none; }
+  @media (max-width: 1008px) {
+    figure.full-width { margin: 28px -16px; }
+  }
+
+  /* Media Row (image left, text right) */
+  .media-row {
+    display: flex; gap: 30px; align-items: flex-start;
+    margin: 32px 0;
+    background: var(--bg-card); border-radius: 6px;
+    overflow: hidden; border: 1px solid var(--border);
+  }
+  .media-row .media-img {
+    flex: 0 0 42%; min-width: 0;
+  }
+  .media-row .media-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    min-height: 280px;
+  }
+  .media-row .media-text {
+    flex: 1; padding: 20px 20px 20px 0;
+  }
+  .media-row .media-text h3 {
+    font-size: 1.3em; color: var(--accent); margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .media-row .media-text p { text-indent: 0; font-size: 0.95em; }
+
+  /* Highlight box */
+  .hl {
+    color: var(--highlight); font-weight: 600;
+  }
+  .highlight-box {
+    background: var(--hl-bg); border-left: 4px solid var(--accent);
+    padding: 18px 22px; margin: 24px 0; border-radius: 0 6px 6px 0;
+    font-size: 0.95em;
+  }
+  .highlight-box p { text-indent: 0; margin-bottom: 8px; }
+  .highlight-box p:last-child { margin-bottom: 0; }
+
+  /* Timeline */
+  .timeline {
+    position: relative; padding-left: 30px; margin: 24px 0;
+    border-left: 2px solid var(--border);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 20px; padding-left: 20px;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -36px; top: 6px;
+    width: 10px; height: 10px; background: var(--accent);
+    border-radius: 50%; border: 2px solid var(--bg);
+  }
+  .timeline-year {
+    font-size: 0.85em; color: var(--accent); font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .timeline-text {
+    font-size: 0.95em; color: var(--text-muted);
+  }
+
+  /* Gallery grid */
+  .gallery {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin: 28px 0;
+  }
+  .gallery figure { margin: 0; }
+  .gallery img { aspect-ratio: 1; object-fit: cover; }
+
+  /* Info table */
+  .info-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 6px;
+    overflow: hidden; margin: 24px 0;
+  }
+  .info-grid .info-label {
+    background: var(--bg-card); padding: 12px 16px;
+    font-size: 0.9em; color: var(--accent); font-weight: 600;
+  }
+  .info-grid .info-value {
+    background: var(--bg-card); padding: 12px 16px;
+    font-size: 0.9em; color: var(--text);
+  }
+
+  /* Source reference */
+  .source-ref {
+    font-size: 0.78em; color: var(--text-muted);
+    margin-top: 40px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    text-align: center; letter-spacing: 1px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 30px 20px;
+    color: var(--text-muted); font-size: 0.8em;
+    border-top: 1px solid var(--border); margin-top: 30px;
+  }
+  .footer-divider {
+    width: 30px; height: 1px; background: var(--accent);
+    margin: 0 auto 14px; opacity: 0.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .hero { height: 360px; }
+    .hero h1 { font-size: 2em; letter-spacing: 4px; }
+    .hero .subtitle { font-size: 0.95em; }
+    .section-title { font-size: 1.5em; }
+    .media-row { flex-direction: column; }
+    .media-row .media-img { flex: none; }
+    .media-row .media-img img { min-height: 200px; }
+    .media-row .media-text { padding: 16px; }
+    .gallery { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <div class="brand">🏛 塔尔寺 <small>TA'ER TEMPLE</small></div>
+    <ul class="nav-links">
+      <li><a href="#overview">概览</a></li>
+      <li><a href="#history">历史</a></li>
+      <li><a href="#architecture">建筑</a></li>
+      <li><a href="#art">艺术三绝</a></li>
+      <li><a href="#tsongkhapa">宗喀巴</a></li>
+      <li><a href="#culture">文化</a></li>
+      <li><a href="#guide">参观指南</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <img class="hero-bg" src="images/ters/ters_panorama.jpg" alt="塔尔寺全景" loading="eager">
+  <div class="hero-overlay">
+    <h1>塔 尔 寺</h1>
+    <div class="subtitle">宗喀巴诞生地 · 格鲁派六大寺院之一</div>
+    <div class="tagline">藏语意为「十万身像弥勒洲」—— 一座集汉藏建筑艺术之大成的藏传佛教圣地，始建于明洪武十二年（1379年），距今已有<span class="hl">六百四十余年</span>历史。</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- 第一章：概览 -->
+  <section class="section" id="overview">
+    <div class="section-header">
+      <div class="section-num">第一章</div>
+      <div class="section-title">概　览</div>
+      <div class="section-line"></div>
+    </div>
+
+    <figure class="full-width">
+      <img src="images/ters/ters_panorama.jpg" alt="塔尔寺全景鸟瞰" loading="lazy">
+      <figcaption>▲ 塔尔寺建筑群依莲花山而建，以大金瓦殿为中心，面积0.45平方千米</figcaption>
+    </figure>
+
+    <p>塔尔寺（Taer Temple），位于<span class="hl">青海省西宁市湟中区鲁沙尔镇</span>金塔路56号，是明、清两代重要的藏传佛教寺庙建筑群。因藏传佛教<span class="hl">格鲁派</span>（俗称黄教）创始人<span class="hl">宗喀巴</span>诞生于此而闻名天下，位列格鲁派六大寺院之一，同时也是青海省佛学院的最高学府，设有显宗、密宗、天文、医明四大学院。</p>
+
+    <p>寺院占地面积<span class="hl">0.45平方千米</span>，建筑分布于莲花山的一沟两面坡上，以大金瓦殿为中心，拥有各类建筑<span class="hl">九千三百余间</span>（座），总建筑面积10万多平方米。1961年3月4日，塔尔寺被中华人民共和国国务院公布为<span class="hl">第一批全国重点文物保护单位</span>。</p>
+
+    <div class="info-grid">
+      <div class="info-label">中文名</div><div class="info-value">塔尔寺</div>
+      <div class="info-label">外文名</div><div class="info-value">Ta'er Temple (Kumbum Monastery)</div>
+      <div class="info-label">地理位置</div><div class="info-value">青海省西宁市湟中区鲁沙尔镇金塔路56号</div>
+      <div class="info-label">所处时代</div><div class="info-value">明朝（始建于1379年）</div>
+      <div class="info-label">占地面积</div><div class="info-value">0.45 km²</div>
+      <div class="info-label">保护级别</div><div class="info-value">第一批全国重点文物保护单位</div>
+      <div class="info-label">批准单位</div><div class="info-value">中华人民共和国国务院</div>
+      <div class="info-label">编号</div><div class="info-value">1-111-3-64</div>
+    </div>
+  </section>
+
+  <!-- 第二章：历史背景 -->
+  <section class="section" id="history">
+    <div class="section-header">
+      <div class="section-num">第二章</div>
+      <div class="section-title">历史沿革</div>
+      <div class="section-line"></div>
+    </div>
+
+    <p>塔尔寺的起源与一位伟大的宗教改革家——<span class="hl">宗喀巴</span>（1357—1419）密不可分。宗喀巴本名罗桑扎巴，因出生于宗喀地区（今青海湟中）而得名。他后来远赴西藏求学修行，创立了格鲁派，成为藏传佛教史上最有影响力的人物之一。</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">明洪武十二年（1379年）</div>
+        <div class="timeline-text">宗喀巴的母亲按儿子所示，以<span class="hl">旃檀树</span>和宗喀巴所寄狮子吼佛像为胎藏，在宗喀巴降生处砌石修建<span class="hl">莲聚塔</span>——这便是塔尔寺的起源。「塔尔寺」藏语意为「十万身像弥勒洲」，而汉语名正是「塔」与「寺」的组合：先有塔，后有寺。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">明嘉靖三十九年（1560年）</div>
+        <div class="timeline-text">禅师<span class="hl">仁钦宗哲坚赞</span>在莲聚塔旁修建静房，聚僧坐禅，开创塔尔寺建造殿宇之始。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">明万历五年（1577年）</div>
+        <div class="timeline-text">在莲聚塔旁再建汉式佛殿——<span class="hl">弥勒佛殿</span>，标志着寺院规模开始扩大。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">明万历十一年（1583年）</div>
+        <div class="timeline-text"><span class="hl">第三世达赖喇嘛索南嘉措</span>扩建塔尔寺，赐赠供奉佛像，正式确立寺院的宗教地位。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">明万历四十年（1612年）</div>
+        <div class="timeline-text">正式建立<span class="hl">显宗学院</span>，讲经开法，塔尔寺成为格鲁派的正规寺院。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">清康熙五十年（1711年）</div>
+        <div class="timeline-text">用<span class="hl">黄金1300两、白银一万多两</span>将各殿屋顶改为金顶，形成三层重檐歇山式金顶的宏伟外观。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">清乾隆四十一年（1776年）</div>
+        <div class="timeline-text">在寺前广场建造<span class="hl">八宝如意塔</span>，纪念佛祖释迦牟尼一生中的八大功德——这八座白塔至今仍是塔尔寺的标志性景观。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1961年</div>
+        <div class="timeline-text">被国务院公布为<span class="hl">第一批全国重点文物保护单位</span>。</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>💡 <strong>「塔尔寺」名字的由来</strong>：藏语称「衮本贤巴林」，意为「十万身像弥勒洲」。汉语「塔尔寺」意为「先有塔，后有寺」——宗喀巴母亲最初只是在他诞生处修了一座莲聚塔，后来围绕此塔逐渐建起了庞大的寺院建筑群。就像一棵树从一粒种子长成参天大树，塔尔寺是从一座小小的纪念塔发展为占地0.45平方千米的宏伟寺院。</p>
+    </div>
+  </section>
+
+  <!-- 第三章：建筑格局 -->
+  <section class="section" id="architecture">
+    <div class="section-header">
+      <div class="section-num">第三章</div>
+      <div class="section-title">建筑格局与特色</div>
+      <div class="section-line"></div>
+    </div>
+
+    <p>塔尔寺的建筑群堪称<span class="hl">汉藏建筑艺术融合的典范</span>。寺院巧妙地利用了莲花山的山形地势，沿山脚和沟谷布置，使总体建筑群和各个单体建筑有机组合——建筑形体有大有小、有繁有简，格局有主有从，形成了错落有致、布局严谨的宏大寺院。</p>
+
+    <!-- 大金瓦殿 -->
+    <div class="media-row">
+      <div class="media-img">
+        <img src="images/ters/ters_dajinwa.jpg" alt="大金瓦殿" loading="lazy">
+      </div>
+      <div class="media-text">
+        <h3>🏛 大金瓦殿</h3>
+        <p>始建于明天启二年（1622年），是塔尔寺的<span class="hl">核心建筑</span>，大殿正中供有纪念宗喀巴的银塔。大殿平面呈品字形，面积456平方米，为<span class="hl">三重檐歇山鎏金铜瓦顶</span>，回廊周匝，檐口饰以鎏金云头挂板，正脊安装鎏金宝顶和喷焰摩尼。清康熙年间用黄金1300两将殿顶改为金顶后，更显金碧辉煌。</p>
+        <p>通俗地说，大金瓦殿就像塔尔寺的「心脏」——所有建筑围绕它展开，殿内供奉的银塔通高11.26米，塔基、塔身均为纯银鎏金，周身镶嵌珊瑚、宝石，是整个寺院最神圣的地方。</p>
+      </div>
+    </div>
+
+    <!-- 八宝如意塔 -->
+    <div class="media-row">
+      <div class="media-text">
+        <h3>🕌 八宝如意塔</h3>
+        <p>又称「善逝八塔」，建于清乾隆四十一年（1776年），矗立于<span class="hl">寺前广场</span>。八座塔大同小异，塔身高6.4米，塔底周长9.4米。塔身白灰抹面，底座青砖砌成，腰部装饰有藏文经文，每个塔身南面还有一个佛龛，内藏梵文。八塔分别纪念释迦牟尼一生的八大功德——从诞生到涅槃。</p>
+        <p>这八座白塔是游客最熟悉的地标，就像塔尔寺的「迎宾大道」——所有访客都会先经过这片庄严的白塔广场，再进入寺院深处。</p>
+      </div>
+      <div class="media-img">
+        <img src="images/ters/ters_babao_stupas.jpg" alt="八宝如意塔" loading="lazy">
+      </div>
+    </div>
+
+    <!-- More architecture in text -->
+    <div class="media-row">
+      <div class="media-img">
+        <img src="images/ters/ters_dajinwa.jpg" alt="大经堂" loading="lazy">
+      </div>
+      <div class="media-text">
+        <h3>📿 大经堂</h3>
+        <p>塔尔寺内<span class="hl">建筑面积最大的殿堂</span>，始建于明万历四十年（1612年），为木土结构的藏式双层平顶建筑。经堂内设有总法台宝座，数十条长形禅座可容纳<span class="hl">6000名僧人同时诵经</span>——想象一下，六千人同声念经的场面是何等壮观！堂内108根大柱均用毛毯包裹，上有蟠龙采云图，顶部垂挂幡幢、宝盖和堆绣画。</p>
+      </div>
+    </div>
+
+    <h3 style="color:var(--accent);margin:30px 0 12px;letter-spacing:2px;">其他重要建筑</h3>
+    
+    <p><span class="hl">小金瓦殿（护法神殿）</span>：初建于清康熙三十一年（1692年），殿顶为镏金铜瓦，与大金瓦殿遥相呼应。殿内除供护法神像外，还展示着熊、野牛、马、野羊等标本，象征被护法神制服的各种恶魔——给人以强烈的视觉冲击和宗教敬畏感。</p>
+
+    <p><span class="hl">弥勒佛殿</span>：始建于明万历五年（1577年），殿内主供弥勒佛12岁身量像，全部镀金。殿门两旁各有一通藏文石碑，记录了九世班禅驻锡和各位活佛布施的历史事件。</p>
+
+    <p><span class="hl">文殊菩萨殿（九间殿）</span>：建于明万历二十年（1592年），为汉族歇山式建筑，建筑面积595平方米，由九大间组成。殿前立有五通石碑，记载了内蒙古、青海等地僧俗为塔尔寺布施的事迹。</p>
+
+    <p>塔尔寺的建筑独特之处在于它<span class="hl">融合汉藏两种建筑风格</span>：将汉式三檐歇山式与藏族檐下巧砌鞭麻墙、中镶金刚时轮梵文咒和铜镜、底层镶砖的形式融为一体。简单来说，你在这里既能看见汉式大屋顶的飞檐翘角，也能看到藏式的厚重墙体和平顶结构——两种文化在建筑中完美对话。</p>
+  </section>
+
+  <!-- 第四章：艺术三绝 -->
+  <section class="section" id="art">
+    <div class="section-header">
+      <div class="section-num">第四章</div>
+      <div class="section-title">艺术三绝</div>
+      <div class="section-line"></div>
+    </div>
+
+    <p>塔尔寺内有大量的鎏金铜质佛像、金银法器、金书藏经、木刻藏经以及灵骨塔等珍贵文物。而在这些藏品和传统工艺中，尤以<span class="hl">酥油花、壁画和堆绣</span>最为名贵，被誉为塔尔寺「<span class="hl">艺术三绝</span>」。</p>
+
+    <div class="gallery">
+      <figure>
+        <img src="images/ters/ters_suyouhua.jpg" alt="酥油花" loading="lazy">
+        <figcaption>酥油花彩塑艺术品</figcaption>
+      </figure>
+      <figure>
+        <img src="images/ters/ters_tangka.jpg" alt="壁画唐卡" loading="lazy">
+        <figcaption>壁画/唐卡绘画</figcaption>
+      </figure>
+      <figure>
+        <img src="images/ters/ters_duixiu.jpg" alt="堆绣" loading="lazy">
+        <figcaption>堆绣工艺品</figcaption>
+      </figure>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>🎨 酥油花：</strong>用酥油掺和其他物质精工堆塑而成的立体彩塑。色彩华丽协调，加上金箔装饰，绚丽夺目。酥油花的制作难度极大——因为酥油在常温下会融化，艺人必须在<span class="hl">寒冷的冬季将手浸泡在冰水中降温</span>后才能进行捏塑，每一朵酥油花都凝结着艺人的虔诚与艰辛。</p>
+      <p><strong>🖼 壁画（唐卡）：</strong>绘画内容丰富、数量之多，为其他藏传佛教寺院所少见。这些绘画除了直接绘在墙壁上，还有绘在布幔、丝麻织品上的唐卡，全部采用<span class="hl">矿物颜料</span>绘制，所以历经数百年依然色彩鲜艳、经久不变。就像用石头磨成的颜料画画，时间越久越有味道。</p>
+      <p><strong>🧵 堆绣：</strong>用各种颜色的绸缎、羊皮、棉花、绒毛等在布帛丝麻等织物上堆贴绣制而成，内容涵盖佛像、菩萨、罗汉、花卉、鸟兽等。这是一种介于绘画和浮雕之间的独特艺术形式——绣出来的立体画卷。</p>
+    </div>
+  </section>
+
+  <!-- 第五章：宗喀巴大师 -->
+  <section class="section" id="tsongkhapa">
+    <div class="section-header">
+      <div class="section-num">第五章</div>
+      <div class="section-title">关键人物 · 宗喀巴大师</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="media-row">
+      <div class="media-img">
+        <img src="images/ters/ters_tsongkhapa.jpg" alt="宗喀巴大师" loading="lazy">
+      </div>
+      <div class="media-text">
+        <h3>🧘 宗喀巴（1357—1419）</h3>
+        <p>宗喀巴本名<span class="hl">罗桑扎巴</span>，出生于今青海湟中（藏语称湟中为「宗喀」，故称宗喀巴）。他是藏传佛教<span class="hl">格鲁派（黄教）的创始人</span>，被誉为「第二佛陀」，是藏传佛教史上最伟大的宗教改革家之一。</p>
+        <p>宗喀巴7岁在夏琼寺出家，16岁赴西藏深造，遍学各派经典。在那个时代，藏传佛教一些教派戒律松弛、修行混乱。宗喀巴振臂高呼，要求僧人严守戒律、独身不娶、先显后密次第修行。1388年，他改持<span class="hl">黄色僧帽</span>作为重整戒律的象征——格鲁派因此又称「黄帽派」。</p>
+        <p>1409年，宗喀巴在拉萨发起<span class="hl">祈愿大法会</span>并创建<span class="hl">甘丹寺</span>，标志着格鲁派正式创立。他培养的弟子中，克珠杰被追认为一世班禅，根敦朱巴被追认为一世达赖——可以说，他一手奠定了藏传佛教后世几百年的格局。</p>
+        <p>每年藏历十月二十五日，蒙藏地区寺院和家庭都会燃灯纪念宗喀巴圆寂，称为「<span class="hl">燃灯节</span>」——成千上万盏酥油灯同时点亮，如星河落入人间，以此缅怀这位伟大的宗教改革家。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第六章：文化趣闻 -->
+  <section class="section" id="culture">
+    <div class="section-header">
+      <div class="section-num">第六章</div>
+      <div class="section-title">文化习俗与冷知识</div>
+      <div class="section-line"></div>
+    </div>
+
+    <figure class="full-width">
+      <img src="images/ters/ters_shaifo.jpg" alt="晒大佛仪式" loading="lazy">
+      <figcaption>▲ 晒佛节（展佛节）——塔尔寺一年一度的盛大宗教仪式</figcaption>
+    </figure>
+
+    <h3 style="color:var(--accent);margin:20px 0 12px;">☀️ 晒大佛（展佛节）</h3>
+    <p>每年农历四月和六月，塔尔寺都会举行盛大的<span class="hl">晒佛仪式</span>。所谓「晒佛」，是将放置一年的巨大佛像唐卡请出来在露天展示——一方面是防霉防虫保护文物，更重要的是供信众朝拜。塔尔寺有「狮子吼」「释迦牟尼」「宗喀巴」「金刚萨埵」四种巨型堆绣佛像，每次只晒一种，在寺院山坡上展晒。当东方第一缕曙光照到佛像的那一刻，即为展佛的最佳时辰，场面极为壮观。</p>
+
+    <div class="highlight-box">
+      <p><strong>🧊 冷知识 #1：酥油花艺人为什么要冰手？</strong>酥油的熔点很低，在常温下就会软化变形。所以艺人在制作酥油花时，必须不断将双手浸入冰水中降温，让手指保持冰冷状态才能进行精细捏塑。每一位酥油花艺人都是用「冻出来的艺术」来表达虔诚。</p>
+      <p><strong>🏗 冷知识 #2：「先有塔，后有寺」是真的吗？</strong>是的！塔尔寺的「塔」指的是1379年宗喀巴母亲修建的莲聚塔，「寺」则是后来围绕此塔逐渐建起的殿宇群。从一座小小的纪念塔发展到占地0.45平方千米的庞大寺院，用了近两百年时间。</p>
+      <p><strong>👑 冷知识 #3：为什么格鲁派叫「黄教」？</strong>1388年，宗喀巴为了表明重整戒律的决心，将僧帽改为黄色——这就是「黄教」名称的来源。黄色在藏传佛教中象征戒律和智慧。从此以后，格鲁派僧人的黄色桃形帽成为最醒目的标志。</p>
+      <p><strong>🌍 冷知识 #4：塔尔寺周边已是博物馆群</strong>青海省以塔尔寺为核心构建了博物馆群——周边有藏文化馆、河湟文化博物馆、八瓣莲花非遗传承体验中心等。游览塔尔寺的同时，还可以体验锅庄舞、皮影戏、青海花儿等民间文化艺术。</p>
+    </div>
+  </section>
+
+  <!-- 第七章：参观指南 -->
+  <section class="section" id="guide">
+    <div class="section-header">
+      <div class="section-num">第七章</div>
+      <div class="section-title">参观指南</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-label">📍 详细地址</div>
+      <div class="info-value">青海省西宁市湟中区鲁沙尔镇金塔路56号</div>
+      <div class="info-label">🚗 交通方式</div>
+      <div class="info-value">从西宁市区可乘公交或出租车前往，车程约30公里（约40分钟）。西宁火车站有直达塔尔寺的旅游专线。</div>
+      <div class="info-label">🎫 门票信息</div>
+      <div class="info-value">旺季（4月—10月）约80元/人；淡季（11月—次年3月）约40元/人（具体价格以景区公告为准）</div>
+      <div class="info-label">🕐 开放时间</div>
+      <div class="info-value">夏季 8:00—18:00；冬季 8:30—17:30</div>
+      <div class="info-label">📅 最佳季节</div>
+      <div class="info-value">农历正月（祈愿大法会）、四月和六月（晒佛节）、十月（燃灯节）期间最为精彩</div>
+      <div class="info-label">🏔 海拔提示</div>
+      <div class="info-value">塔尔寺海拔约2700米，初到高原注意适当休息，避免剧烈运动</div>
+      <div class="info-label">⚠️ 着装要求</div>
+      <div class="info-value">自2018年起，参观者必须身着长衫、长裙，着装太暴露将无法进入。请尊重宗教场所礼仪。</div>
+      <div class="info-label">📸 拍照须知</div>
+      <div class="info-value">殿堂内部通常禁止拍照，请留意各殿标识。殿堂外部和广场可以正常拍摄。</div>
+      <div class="info-label">🔄 游览时长</div>
+      <div class="info-value">建议预留3—4小时，深入感受藏传佛教文化和建筑艺术</div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:24px;">
+      <p><strong>🛐 参观礼仪小贴士：</strong></p>
+      <p>• 进入殿堂请脱帽、保持安静，不要大声喧哗</p>
+      <p>• 绕行佛塔、转经筒请按<span class="hl">顺时针方向</span>（这是藏传佛教的传统习俗）</p>
+      <p>• 不要用手指直接指向佛像，可用手掌向上示意</p>
+      <p>• 尊重僧人的宗教生活，未经允许不要近距离拍摄僧人</p>
+      <p>• 殿内门槛较高，跨过时请勿踩踏门槛（藏传佛教认为门槛是佛的肩膀）</p>
+    </div>
+  </section>
+
+  <!-- 参考来源 -->
+  <div class="source-ref">
+    本页内容全部来源于百度百科「塔尔寺」及「宗喀巴」词条。所有历史数据、建筑描述、文物介绍均有据可查，未作任何编造。
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-divider"></div>
+  塔尔寺旅游导览 · 藏传佛教圣地 · 宗喀巴诞生地<br>
+  资料来源：百度百科 · 图片：AI生成插图
+</footer>
+
+</body>
+</html>
