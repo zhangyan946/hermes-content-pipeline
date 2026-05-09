@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Content Pipeline · AI 驱动内容自动生成</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card-bg: #12121a;
+    --text: #e0e0e0;
+    --muted: #808090;
+    --accent: #22d3ee;
+    --accent2: #34d399;
+    --border: #1e1e2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', 'Microsoft YaHei', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  .container { max-width: 800px; width: 100%; }
+  
+  .header { text-align: center; margin-bottom: 3rem; }
+  .header h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .header .dot { display: inline-block; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; margin-right: 0.5rem; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .header p { color: var(--muted); font-size: 0.85rem; }
+
+  .cards { display: grid; gap: 1rem; margin-bottom: 2rem; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .card h2 { font-size: 1rem; margin-bottom: 0.25rem; }
+  .card .desc { color: var(--muted); font-size: 0.8rem; line-height: 1.5; }
+  .card .tag { display: inline-block; background: rgba(34,211,238,0.1); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; margin-top: 0.5rem; }
+  .card .tag.green { background: rgba(52,211,153,0.1); color: var(--accent2); }
+
+  .footer { text-align: center; color: var(--muted); font-size: 0.7rem; margin-top: 2rem; }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1><span class="dot"></span>Hermes Content Pipeline</h1>
+    <p>多 Agent 协作 · 长链推理 · AI 驱动内容自动生成</p>
+  </div>
+
+  <div class="cards">
+    <a href="./兵马俑导览.html" class="card">
+      <div class="icon">🏛️</div>
+      <h2>秦始皇兵马俑 · 旅游导览</h2>
+      <div class="desc">全自动生成的文化导览页面 — 从百科资料采集到 AI 生图，再到暗色博物馆主题渲染。包含坑道结构、兵种图鉴、镇馆之宝等 6 大章节。</div>
+      <span class="tag">AI 生图 · 7 张插图</span>
+    </a>
+
+    <a href="./塔尔寺导览.html" class="card">
+      <div class="icon">🛕</div>
+      <h2>塔尔寺 · 旅游导览</h2>
+      <div class="desc">藏传佛教圣地导览 — 涵盖大金瓦殿、八宝如意塔、酥油花等核心内容，AI 定向生成匹配插图，图文严格对应。</div>
+      <span class="tag green">AI 生图 · 4 张插图</span>
+    </a>
+
+    <a href="./hermes-agent-workflow.html" class="card">
+      <div class="icon">📐</div>
+      <h2>系统架构图</h2>
+      <div class="desc">完整的五阶段管线架构图 — 信息采集 → 语义分解 → 图像生成 → 内容编排 → 质量校验，含反馈回路与多 Agent 协作关系。</div>
+      <span class="tag">架构设计</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    <p><a href="https://github.com/zhangyan946/hermes-content-pipeline">GitHub</a> · 张焱软件 · 2026</p>
+    <p style="margin-top:0.5rem">Powered by Hermes Agent + 火山引擎即梦AI 4.6</p>
+  </div>
+</div>
+</body>
+</html>
